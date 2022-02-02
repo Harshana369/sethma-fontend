@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AddCustomer from "./pages/AddCustomer";
-import  Customers from "./pages/Customers";
+import Appoimentcalendar from "./pages/Appoimentcalendar";
+import Homepage from "./pages/Homepage";
+import Patient from "./pages/Patient";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Customers />}></Route>
-        <Route path="/add-customer" element={<AddCustomer />}></Route>
+        <Route path="/" element={<Patient/>}></Route>
+        <Route path="/Home" element={<Homepage />}></Route>
       </Routes>
     </Router>
   );
