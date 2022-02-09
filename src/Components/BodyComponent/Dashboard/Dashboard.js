@@ -66,8 +66,11 @@ export default function Dashboard() {
           }}
         >
           <CardContent className={classes.cardContent}>
-            <Typography variant="body2" className={classes.cardLabel}>
-              <h4>Patient</h4>
+            <Typography
+              variant="body2"
+              className={classes.cardLabel}
+            >
+              Patient
             </Typography>
             <Typography
               variant="h5"
@@ -88,7 +91,7 @@ export default function Dashboard() {
         >
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" className={classes.cardLabel}>
-              <h4>Doctor</h4>
+              Doctor
             </Typography>
             <Typography
               variant="h5"
@@ -109,7 +112,7 @@ export default function Dashboard() {
         >
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" className={classes.cardLabel}>
-              <h4>Appoiments</h4>
+              Appoiments
             </Typography>
             <Typography
               variant="h5"
@@ -122,7 +125,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </Grid>
-      <ApoimentCalander/>
+      <ApoimentCalander />
     </Grid>
   );
 }

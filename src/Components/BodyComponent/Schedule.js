@@ -37,9 +37,7 @@ export default function Schedule() {
         var temp = [];
         console.log(res.data[0].id + "");
         for (let i = 0; i < res.data.length; i++) {
-
-          temp.push({ label: (res.data[i].id + "")});
-          
+          temp.push({ label: res.data[i].id + "" });
         }
         setDoctor(temp);
       })
@@ -48,32 +46,30 @@ export default function Schedule() {
       });
   }, []);
 
-
   const ScheduleSubmits = () => {
-    console.log();
+    console.log(moment(startDate).format("MM.DD.YYYY"));
     console.log(startTime);
     console.log(endTime);
     console.log(selectedDoctor.label);
     console.log(ConsultationTime.label);
 
-
-     axios
-       .post("http://localhost:8000/api/schedules", {
-         doctor_id: selectedDoctor.label,
-         doctor_schedule_date: moment(startDate).format("MM.DD.YYYY"),
-         doctor_schedule_start: startTime,
-         doctor_schedule_end: endTime,
-         average_consultation_time: ConsultationTime.label,
-       })
-       .then(
-         (response) => {
-           console.log(response);
-           alert("Schedule Add Success");
-         },
-         (error) => {
-           console.log(error);
-         }
-       );
+    axios
+      .post("http://localhost:8000/api/schedules", {
+        doctor_id: selectedDoctor.label,
+        doctor_schedule_date: moment(startDate).format("MM.DD.YYYY"),
+        doctor_schedule_start: startTime,
+        doctor_schedule_end: endTime,
+        average_consultation_time: ConsultationTime.label,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+          alert("Schedule Add Success");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   return (
@@ -84,7 +80,6 @@ export default function Schedule() {
             maxWidth: 1000,
             padding: "20px 5px",
             margin: "0 auto",
-            marginTop: "15px",
           }}
         >
           <CardContent>

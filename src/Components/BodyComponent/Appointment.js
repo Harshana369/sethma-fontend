@@ -10,9 +10,12 @@ import {
 import { Autocomplete } from "@mui/material";
 
 import "react-datepicker/dist/react-datepicker.css";
-import ReactDatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import axios from "axios";
+import DoctorTimetable from "../BodyComponent/DoctorTimetable"
+import DoctorDetalis from "../BodyComponent/DoctorDetalis";
+import PatientDetalis from "./PatientDetalis";
+
 
 export default function Appoiment() {
   const [time, setTime] = useState();
@@ -61,7 +64,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id});
+          temp.push({ label: res.data[i].id + ""});
         }
         setDoctor(temp);
       })
@@ -75,7 +78,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id});
+          temp.push({ label: res.data[i].id + ""});
         }
         setPatient(temp);
       })
@@ -89,7 +92,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id});
+        temp.push({ label: res.data[i].id + ""});
         }
         setSchedule(temp);
       })
@@ -115,7 +118,11 @@ const AppoimentsSubmits = () => {
             marginTop: "15px",
           }}
         >
-          <CardContent>
+          <CardContent
+            style={{
+              marginTop: "25px",
+            }}
+          >
             <Typography gutterBottom variant="h5">
               Appointment
             </Typography>
@@ -194,6 +201,9 @@ const AppoimentsSubmits = () => {
           </CardContent>
         </Card>
       </Grid>
+      <DoctorTimetable />
+      <DoctorDetalis/>
+      <PatientDetalis/>
     </div>
   );
 }
