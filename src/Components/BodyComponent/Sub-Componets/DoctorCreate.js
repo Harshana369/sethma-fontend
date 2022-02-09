@@ -6,15 +6,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextField } from "@material-ui/core";
 
-export default function FormDialog({
+export default function DoctorCreate({
   open,
   handleClose,
   data,
   onChange,
   handleFormSubmit,
- 
 }) {
-  const { id, name, email, phone, address } = data;
+  const { id, nic, name, email, phone, address, specialization } = data;
 
   return (
     <div>
@@ -25,10 +24,20 @@ export default function FormDialog({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {id ? "Update user" : "Create new user"}
+          {id ? "Update user" : "Create new Doctor"}
         </DialogTitle>
         <DialogContent>
           <form>
+            <TextField
+              id="nic"
+              value={nic}
+              onChange={(e) => onChange(e)}
+              placeholder="Enter nic"
+              label="nic"
+              variant="outlined"
+              margin="dense"
+              fullWidth
+            />
             <TextField
               id="name"
               value={name}
@@ -65,6 +74,16 @@ export default function FormDialog({
               onChange={(e) => onChange(e)}
               placeholder="Enter Address"
               label="Address"
+              variant="outlined"
+              margin="dense"
+              fullWidth
+            />
+            <TextField
+              id="specialization"
+              value={specialization}
+              onChange={(e) => onChange(e)}
+              placeholder="Enter specialization"
+              label="specialization"
               variant="outlined"
               margin="dense"
               fullWidth

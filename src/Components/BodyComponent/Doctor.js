@@ -3,13 +3,13 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { Grid, Button } from "@material-ui/core";
-import FormDialog from "../components/dialog";
+import DoctorCreate from "./Sub-Componets/DoctorCreate";
 import axios from "axios";
 
 // from ekee thiyana input text field
 const initialValue = { name: "", email: "", phone: "", address: "" };
 
-function Patient() {
+function Doctor() {
   const [gridApi, setGridApi] = useState(null);
 
   // table ekee data set wenawa
@@ -34,37 +34,42 @@ function Patient() {
 
   // const url = `http://localhost:4000/users`;
 
-   const url = `http://localhost:8000/api/patients`;
+  const url = `http://localhost:8000/api/doctors`;
 
   // table eke header name tikaii action type tikaii
   const columnDefs = [
     { headerName: "ID", field: "id" },
+    { headerName: "Nic", field: "nic" },
     { headerName: "Name", field: "name" },
-    { headerName: "Address", field: "address" },
+    { headerName: "email", field: "address" },
     { headerName: "Phone", field: "phone" },
-    { headerName: "Email", field: "email" },
+    { headerName: "Address", field: "address" },
+    { headerName: "Specialization", field: "specialization" },
 
     {
       headerName: "Actions",
       field: "id",
+
       cellRendererFramework: (params) => (
         <div>
           {/* data update karana button eka table ekee */}
           <Button
+            size="small"
             variant="outlined"
             color="primary"
             onClick={() => handleUpdate(params.data)}
           >
-            Update
+            Udt
           </Button>
 
           {/* data delete karana button eka table ekeee */}
           <Button
+            size="small"
             variant="outlined"
             color="secondary"
             onClick={() => handleDelete(params.value)}
           >
-            Delete
+            Dlt
           </Button>
         </div>
       ),
@@ -72,9 +77,21 @@ function Patient() {
   ];
 
   // call karala user deta gannawa
-  // useEffect(() => {
-  //   getUsers();
-  // }, [gridApi]);
+  useEffect(() => {
+    getUsers();
+  }, [gridApi]);
+
+  const postdatacall = () => {
+    console.log(formData, url);
+    axios
+      .post(url, formData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   //call karala patient deta tika gannawa.., table sate ekata set karanawaaa
   const getUsers = () => {
@@ -116,7 +133,6 @@ function Patient() {
   // Patient update and save api call
   const handleFormSubmit = () => {
     if (formData.id) {
-    
       //updating a user
       const confirm = window.confirm(
         "Are you sure, you want to update this row ?"
@@ -135,41 +151,20 @@ function Patient() {
             getUsers();
           });
     } else {
-      // adding new user
-      fetch("http://localhost:8000/api/patients", {
+      //adding new user
+      fetch(url, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
-          "content-type": "application/json",
+          "content-type": "application/json; charset=UTF-8",
         },
       })
         .then((resp) => resp.json())
         .then((resp) => {
           console.log(resp);
           handleClose();
-         // getUsers();
+           getUsers();
         });
-
-      
-
-// let request = new Request(url, {
-//   method: "POST",
-//   body: JSON.stringify(formData),
-//   headers: new Headers({
-//     "Content-Type": "application/json; charset=UTF-8",
-//   }),
-// });
-
-// fetch(request).then(function () {
-//   // Handle response you get from the API
-//   //console.log(request)
-// });
-
-      
-
-  
- 
-    
     }
   };
 
@@ -183,11 +178,16 @@ function Patient() {
 
   return (
     <div align="center">
-      <h1 align="center">Patient Panel</h1>
-      <h4>Patient all data screen</h4>
+      <h1 align="center">Doctor Panel</h1>
+      <h4>Doctor all data screen</h4>
       <Grid align="right">
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
-          Add Patient
+        <Button
+          variant="contained"
+          className="mb-3"
+          color="primary"
+          onClick={handleClickOpen}
+        >
+          Add Doctor
         </Button>
       </Grid>
       <div className="ag-theme-alpine" style={{ height: "400px" }}>
@@ -202,7 +202,7 @@ function Patient() {
           onGridReady={onGridReady}
         />
       </div>
-      <FormDialog
+      <DoctorCreate
         // popu open
         open={open}
         // popu close
@@ -213,10 +213,9 @@ function Patient() {
         onChange={onChange}
         // handleFormSubmit ekee thiyana method pase karanawa
         handleFormSubmit={handleFormSubmit}
-       
       />
     </div>
   );
 }
 
-export default Patient;
+export default Doctor;
