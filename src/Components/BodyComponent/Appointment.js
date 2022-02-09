@@ -35,10 +35,25 @@ const AppoimentsSubmits = () => {
    console.log(selectSchedule.label);
    console.log(time);
    console.log(price.label);
+
+  axios
+    .post("http://localhost:8000/api/appoiments", {
+      doctor_id: selectDoctor.label,
+      patient_id: selectPatient.label,
+      doctor_schedule_id: selectSchedule.label,
+      appoiment_time: time,
+    })
+    .then(
+      (response) => {
+        console.log(response);
+        alert("appoiments Add Success");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
 };
-
-
-
   useEffect(() => {
     // doctors
     axios
@@ -46,7 +61,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id, year: res.data[i].id });
+          temp.push({ label: res.data[i].id});
         }
         setDoctor(temp);
       })
@@ -60,7 +75,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id, year: res.data[i].id });
+          temp.push({ label: res.data[i].id});
         }
         setPatient(temp);
       })
@@ -74,7 +89,7 @@ const AppoimentsSubmits = () => {
       .then((res) => {
         var temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id, year: res.data[i].id });
+          temp.push({ label: res.data[i].id});
         }
         setSchedule(temp);
       })

@@ -35,8 +35,11 @@ export default function Schedule() {
       .get(`http://localhost:8000/api/doctors`)
       .then((res) => {
         var temp = [];
+        console.log(res.data[0].id + "");
         for (let i = 0; i < res.data.length; i++) {
-          temp.push({ label: res.data[i].id, year: res.data[i].id });
+
+          temp.push({ label: (res.data[i].id + "")});
+          
         }
         setDoctor(temp);
       })
